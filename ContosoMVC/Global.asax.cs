@@ -17,5 +17,17 @@ namespace ContosoMVC
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        public void Application_Error(object sender, EventArgs e)
+        {
+            var exe = Server.GetLastError();
+            //Log this error to the text file using log4net.
+            //Send the notification to the concerned parties.
+            Server.ClearError();
+            
+        }
+        public void Application_BeginRequest()
+        {
+
+        }
     }
 }
