@@ -46,17 +46,17 @@ namespace ContosoMVC.Controllers
         [HttpPost]
         public ActionResult Create(Departments department)
         {
-            //string Name = form["Name"];
-            //decimal Budget = Convert.ToDecimal(form["Budget"]);
-            //DateTime StartDate=form["StartDate"]
-            //int InstructorId = Convert.ToInt32(form["InstructorId"]);
-            //DateTime CreatedDate = form["CreatedDate"]
-            //string CreatedBy = form["CreatedBy"];
-            //DateTime UpdatedDate = form["UpdatedDate"]
-            //string UpdatedBy = form["UpdatedBy"];
-            DepartmentService dep = new DepartmentService();
-            dep.CreateDepartment(department);
-            return RedirectToAction("GetAllDepartment");
+            if (ModelState.IsValid)
+            {
+                DepartmentService dep = new DepartmentService();
+                dep.CreateDepartment(department);
+                return RedirectToAction("GetAllDepartment");
+            }
+            else
+            {
+                return View(department);
+            }
+   
         }
 
         public ActionResult Edit(int Id)

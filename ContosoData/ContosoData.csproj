@@ -82,6 +82,10 @@
     <Compile Include="Migrations\201708170100091_AddForeignKeyOnCourses.Designer.cs">
       <DependentUpon>201708170100091_AddForeignKeyOnCourses.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708221519484_testMyMigration.cs" />
+    <Compile Include="Migrations\201708221519484_testMyMigration.Designer.cs">
+      <DependentUpon>201708221519484_testMyMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PersonRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708170100091_AddForeignKeyOnCourses.resx">
       <DependentUpon>201708170100091_AddForeignKeyOnCourses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708221519484_testMyMigration.resx">
+      <DependentUpon>201708221519484_testMyMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
