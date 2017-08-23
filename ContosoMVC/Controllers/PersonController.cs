@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ContosoMVC.Controllers
 {
+    [HandleError]
     public class PersonController : Controller
     {
         // GET: Person
@@ -46,8 +47,7 @@ namespace ContosoMVC.Controllers
         {
             PersonService per = new PersonService();
             var person = per.GetPersonById(Id);
-            //var list = Utility.GetAllStates();
-            //ViewBag.State = new SelectList(list, "StateName", "Value");
+         
             return View(person);
         }
         [HttpPost]

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="CourseService.cs" />
     <Compile Include="DepartmentService.cs" />
+    <Compile Include="IDepartmentService.cs" />
     <Compile Include="InstructorService.cs" />
     <Compile Include="PersonService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

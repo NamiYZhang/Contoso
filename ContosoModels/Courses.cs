@@ -14,7 +14,11 @@ namespace ContosoModels
         public int Id { get; set; }
         public ICollection<Enrollments> Enrollments { get; set; }
         public ICollection<Instructor> Instructor { get; set; }
+
+        [StringLength(50, MinimumLength = 3)]
+        [Required(ErrorMessage = "Please enter a valid Course Name")]
         public string Title { get; set; }
+
         public int Credit { get; set; }
         [ForeignKey("Departments")]
         public int DepartmentId { get; set; }

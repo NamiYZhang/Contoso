@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ContosoService
 {
-    public class DepartmentService
+    public class DepartmentService:IDepartmentService
     {
         public List<Departments> GetAllDepartments()
         {

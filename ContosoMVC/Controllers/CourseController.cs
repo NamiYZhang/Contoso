@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ContosoMVC.Controllers
 {
+    [HandleError]
     public class CourseController : Controller
     {
         // GET: Course
@@ -35,9 +36,16 @@ namespace ContosoMVC.Controllers
         [HttpPost]
         public ActionResult Create(Courses course)
         {
-            CourseService cour = new CourseService();
-            cour.CreateCourse(course);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                CourseService cour = new CourseService();
+                cour.CreateCourse(course);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(course);
+            }
         }
 
         public ActionResult Edit(int Id)
@@ -50,9 +58,16 @@ namespace ContosoMVC.Controllers
         [HttpPost]
         public ActionResult Edit(Courses course)
         {
-            CourseService cour = new CourseService();
-            cour.UpdateCourse(course);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                CourseService cour = new CourseService();
+                cour.UpdateCourse(course);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(course);
+            }
         }
 
         public ActionResult Details(int Id)

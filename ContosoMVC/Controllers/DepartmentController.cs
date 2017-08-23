@@ -14,26 +14,35 @@ namespace ContosoMVC.Controllers
     //[LogActionFilter]
     public class DepartmentController : Controller
     {
+        private readonly IDepartmentService _departmentService;
+        public DepartmentController(IDepartmentService departmentService)
+        {
+            _departmentService = departmentService;
+        }
         //public DepartmentController()
         //{
-        //    int i = 0;
+        //    _departmentService = new DepartmentService();
+        //}
+        //public DepartmentController()
+        //{
+        //    int i = 0;  
         //    int x = 1;
         //    int z = x / i;
         //}
-        // GET: Department
+
+        //GET: Department
         public ActionResult Index()
         {
-
-            DepartmentService dep = new DepartmentService();
-            var department = dep.GetAllDepartments();
+            //DepartmentService dep = new DepartmentService();
+            var department = _departmentService.GetAllDepartments();
             return View(department);
         }
 
         public ActionResult GetAllDepartment()
         {
 
-            DepartmentService dep = new DepartmentService();
-            var department = dep.GetAllDepartments();
+            //DepartmentService dep = new DepartmentService();
+            var department = _departmentService.GetAllDepartments();
             return View(department);
         }
 
@@ -48,8 +57,8 @@ namespace ContosoMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                DepartmentService dep = new DepartmentService();
-                dep.CreateDepartment(department);
+                //DepartmentService dep = new DepartmentService();
+                _departmentService.CreateDepartment(department);
                 return RedirectToAction("GetAllDepartment");
             }
             else
@@ -61,23 +70,32 @@ namespace ContosoMVC.Controllers
 
         public ActionResult Edit(int Id)
         {
-            DepartmentService dep = new DepartmentService();
-            var department = dep.GetDepartmentById(Id);
+           
+              //DepartmentService dep = new DepartmentService();
+              var department = _departmentService.GetDepartmentById(Id);
 
-            return View(department);
+              return View(department);
+            
         }
         [HttpPost]
         public ActionResult Edit(Departments department)
         {
-            DepartmentService dep = new DepartmentService();
-            dep.UpdateDepartment(department);
+            if (ModelState.IsValid)
+            {
+                //DepartmentService dep = new DepartmentService();
+                _departmentService.UpdateDepartment(department);
             return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(department);
+            }
         }
 
         public ActionResult Details(int Id)
         {
-            DepartmentService dep = new DepartmentService();
-            var department = dep.GetDepartmentById(Id);
+           // DepartmentService dep = new DepartmentService();
+            var department = _departmentService.GetDepartmentById(Id);
             return View(department);
         }
         public ActionResult CreateDepartmentCourse()
@@ -88,18 +106,39 @@ namespace ContosoMVC.Controllers
         [HttpPost]
         public ActionResult CreateDepartmentCourse(DepartmentCourseViewModel model)
         {
-            DepartmentService departmentService = new DepartmentService();
-            Departments dept = new Departments();
-            dept.Name = model.DepartmentName;
-            dept.Budget = Convert.ToDouble(model.DepartmentBudget);
-            departmentService.CreateDepartment(dept);
 
-            CourseService courseService = new CourseService();
-            Courses course = new Courses();
-            course.Title = model.CourseName;
-            courseService.CreateCourse(course);
+            if (ModelState.IsValid)
+            {
+                //DepartmentService departmentService = new DepartmentService();
+                Departments dept = new Departments();
+                dept.Name = model.DepartmentName;
+                dept.Budget = Convert.ToDouble(model.DepartmentBudget);
+                dept.StartDate = model.StartDate;
+                dept.CreatedDate = model.CreatedDate;
+                dept.CreatedBy = model.CreatedBy;
+                dept.UpdatedDate = model.UpdatedDate;
+                dept.UpdatedBy = model.UpdatedBy;
+                dept.InstructorId = model.InstructorId;
+                _departmentService.CreateDepartment(dept);
 
-            return View();
+                CourseService courseService = new CourseService();
+                Courses course = new Courses();
+                course.Title = model.CourseName;
+                course.DepartmentId = model.DepartmentId;
+                course.CreatedDate = model.CreatedDate;
+                course.CreatedBy = model.CreatedBy;
+                course.UpdatedDate = model.UpdatedDate;
+                course.UpdatedBy = model.UpdatedBy;
+
+
+                courseService.CreateCourse(course);
+                return RedirectToAction("Index");
+                //return View(model);
+            }
+            else
+            {
+                return View(model);
+            }
         }
     } 
 
